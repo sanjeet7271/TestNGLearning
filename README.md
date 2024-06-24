@@ -94,7 +94,7 @@
 => The invocationcount attribute tells how many times TestNG should run a test method.    
 
 ## Parametrisations in TestNG
-	**1. Using parameters annotations and testNG XML**
+	1. Using parameters annotations and testNG XML
  		import org.testng.annotations.Parameters;
 		import org.testng.annotations.Test;
 		public class Params
@@ -119,7 +119,7 @@
 		      </classes>
 		   </test>
 		</suite>
-	**2. With the help of DataProvider annotation**
+	2. With the help of DataProvider annotation
  		import org.testng.Assert;
 		import org.testng.annotations.DataProvider;
 		import org.testng.annotations.Test;
