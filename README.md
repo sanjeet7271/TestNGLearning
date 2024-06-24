@@ -92,3 +92,46 @@
 	
 ## IX) What is the use of @Test(invocationCount=x)?
 => The invocationcount attribute tells how many times TestNG should run a test method.    
+
+## Parametrisations in TestNG
+	1. Using parameters annotations and testNG XML
+ 		import org.testng.annotations.Parameters;
+		import org.testng.annotations.Test;
+		public class Params
+		{
+		    @Test
+		    @Parameters ({"val1", "val2"})
+		    public void Sum(@Optional("Optional Parameter Selected")int v1, int v2) {
+		    	int finalsum = v1 + v2;
+		        System.out.println("The final sum of the given values is " + finalsum);
+	  		System.out.println(message);
+		    }
+		}
+	TestNG.xml file:
+		<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+		<suite name="TestNG Parameters Suite">
+		   <test name="Params">
+		      <parameter name="val1" value="2" />
+		      <parameter name="val2" value="3" />
+		      <classes>
+		         <class name="Params" />
+		      </classes>
+		   </test>
+		</suite>
+	2. With the help of DataProvider annotation
+ 		import org.testng.Assert;
+		import org.testng.annotations.DataProvider;
+		import org.testng.annotations.Test;
+		public class DProvider {
+			@DataProvider (name = "data-provider")
+			public Object[][] dpMethod(){
+				return new Object[][] {{2, 3 , 5}, {5, 7, 9}};
+			}
+			
+		      @Test (dataProvider = "data-provider")
+		      public void myTest (int a, int b, int result) {
+			     int sum = a + b;
+			     Assert.assertEquals(result, sum);
+		      }
+		}
