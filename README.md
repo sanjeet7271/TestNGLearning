@@ -83,8 +83,8 @@
 ## VI.) Priority in TestNG: 
   1. The default test priority in TestNG is 0
   2. We can also set negative (for e.g -1,-2,-3,-4) priority, and it will execute before 0
-  3. Priority in TestNG contains only integer value. The value can be negative, zero, or positive. If a tester defines a priority in decimal in TestNG, it needs to convert first to Integer (through typecasting)
-
+  3. Priority in TestNG contains only integer values. The value can be negative, zero, or positive. If a tester defines a priority in decimal in TestNG, it needs to convert first to Integer (through typecasting)
+  4. if there is no priority given to test cases then tests will execute in alphabetical order.
 
 ## VII.)  Disable Test Case: @Test(enabled=false)
 ## VIII.)     How to skip a @Test method from execution in TestNG
