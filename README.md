@@ -135,3 +135,102 @@
 			     Assert.assertEquals(result, sum);
 		      }
 		}
+## Challenges faced during parallel execution?
+		Answer:
+		Common issues:
+				1. WebDriver sharing
+				2. Static variables
+				3. Report corruption
+				4. Test data conflicts
+				5. Database locking
+		Solution: for driver management, use ThreadLocal
+				ThreadLocal<WebDriver>
+
+## Explain ThreadLocal in the TestNG framework.
+		Answer:  Ensures each thread gets its own WebDriver instance.
+				 private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+				 driver.set(new ChromeDriver());
+				 driver.get();
+				 Avoids session overwrite during parallel execution.
+## What are TestNG Listeners?
+		Answer: Listeners monitor execution events.
+				Examples:
+						1. ITestListener
+						2. ISuiteListener
+						3. IInvokedMethodListener
+						4. IReporter
+## Explain ITestListener.
+		Answer: Used for test status tracking.
+		Methods:
+				 i. onTestStart()
+				ii. onTestSuccess()
+				iii. onTestFailure()
+				iv. onTestSkipped()
+## Difference between Listener and Annotation Transformer?
+	Answer: Listener: Monitors execution.
+			Annotation Transformer: Modifies execution behavior dynamically.
+			Example: IAnnotationTransformer:- Can assign retry analyzer at runtime.
+
+## How do you implement Retry Logic?
+		Answer: Retry failed tests automatically.
+		public class Retry implements IRetryAnalyzer {
+			   int count=0;
+			   public boolean retry(ITestResult result){
+			       if(count<2){
+			           count++;
+			           return true;
+			       }
+			       return false;
+			   }
+			}
+			@Test(retryAnalyzer=Retry.class)
+## How do you rerun only failed tests?
+	Answer: TestNG generates: test-output/testng-failed.xml
+			Execute only failed tests: testng-failed.xml
+## What is Factory Annotation?
+		Answer: Used to create multiple class instances dynamically. Useful for cross-browser execution.
+		@Factory
+		public Object[] createTests(){
+		   return new Object[]{
+		      new LoginTest("Chrome"),
+		      new LoginTest("Firefox")
+		   };
+		}
+
+## How do you generate dynamic TestNG suites?
+		Answer: Using:
+						XmlSuite
+						XmlTest
+						XmlClass
+				Useful for CI/CD pipelines.
+				XmlSuite suite = new XmlSuite();
+				suite.setName("Smoke Suite");
+
+## What are common TestNG framework interview questions for senior SDETs?
+	Interviewers often ask scenario-based questions such as:
+		**Scenario 1:** 1000 tests, 50 are flaky. How will you stabilize execution?
+				Answer:
+				Remove hard waits
+				Use explicit waits
+				Analyze network/API dependencies
+				Retry only transient failures
+				Improve test isolation
+				Parallel-safe framework
+				
+	**Scenario 2:** Parallel execution is failing randomly. What will you check?
+				Answer:
+				ThreadLocal driver implementation
+				Shared static variables
+				Reporting synchronization
+				Test data collisions
+				Browser session management
+				
+	**Scenario 3:** How would you reduce execution from 8 hours to 1 hour?
+				Answer:
+				Selenium Grid
+				Parallel execution
+				API-first validation
+				Cloud execution
+				Smart suite splitting
+				Containerized runners
+				
